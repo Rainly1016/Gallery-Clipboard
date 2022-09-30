@@ -1,0 +1,95 @@
+body {
+  width: 100%;
+  margin: 0mm;
+  padding: 0;
+  
+}
+
+#maincanvas{
+  display: table;
+  
+}
+
+#main-table-row{
+  display: table-row;
+  background-color:gainsboro;
+}
+
+#workblocks{
+  display: table-cell;
+  margin: 10mm;
+  padding: 0mm 20mm;
+  vertical-align: top;
+  background-color: white;
+}
+
+.mainblock {
+  margin: 10mm;
+  display:inline-block;
+}
+
+#controlerblock {
+  display: table-cell;
+  margin: 10mm 20mm 10mm 10mm;
+  display: block;
+  vertical-align: top;
+  
+}
+
+.button {
+  font-size:6pt;
+  margin: 2mm;
+}
+
+.img-block {
+  margin: 0;
+  display: flex;
+}
+
+.infro-block{
+  margin: 0;
+  line-height: 130%; 
+}
+
+.infro{
+  margin: 2% 0 0 0;
+}
+
+span.infro-number{
+  font-size: 80%;
+  transform: translateY(-1mm);
+}
+
+span.infro-title {
+  color: mediumblue;
+}
+
+span.infro-number, span.infro-title, span.infro-author, span.infro-size {
+  margin: 0;
+}
+
+
+.img-maxFrame {
+  padding: 30mm;
+  background-color: gainsboro;
+}
+
+.img-midFrame{
+  padding: 20mm;
+  background-color: gainsboro;
+}
+
+.img-minFrame {
+  padding: 10mm;
+  background-color: gainsboro;
+}
+
+.img-autoFrame{
+  padding: 20mm;
+  background-color:red;
+}
+
+.img-noneFrame{
+  padding:0;
+}
+

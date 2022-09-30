@@ -1,0 +1,17 @@
+body {
+  font-size: 10pt;
+  font-family: HYXuanSong;
+  src: url("../static/HYXuanSong35S.ttf");
+}
+
+
+.des{
+  float: left;
+  margin: 10mm;
+}
+
+.image{
+  padding: 2mm;
+  background-color: antiquewhite;
+}
+
