@@ -1,1 +1,2 @@
-# Super-Exhibition-Layouter
+# Super-Thumbnail-Generator
+
