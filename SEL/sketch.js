@@ -7,7 +7,7 @@ let regexp = /(\-|\+)?\d+(\.\d+)?/g;
 let floatDebug = /[\u4e00-\u9fa5|\。|\．]/g;
 let frameTypeSelector = {
 	maxF: /\版|(水彩)|\年|(连环)|\漫|\宣|\墨/g,
-  minF: /\漆|\油/g,
+	minF: /\漆|\油/g,
 	noneF: /(雕塑)|\影/g,
 }
 let index = 0;
@@ -16,9 +16,9 @@ let maincanvas;
 let mainTableRow;
 let workBlocks;
 let controlerBlocks;
-let fontsizeControler;
+let fontsizeSlider;
 let fontSize;
-let font = 'STHeiti';
+let font = 'HYQiHeiX1-55W';
 
 
 function preload() {
@@ -26,56 +26,59 @@ function preload() {
 }
 
 function CreateElements(work, img) {
-	let workblock = createDiv();
-	workblock.class('mainblock');
-	workblock.parent(workBlocks);
-	workblock.mousePressed(deletElement);
+	let workUnit = createDiv();
+	workUnit.class('work-unit');
+	workUnit.parent(workBlocks);
+
+	let workContent = createDiv();
+	workContent.class('work-content');
+	workContent.parent(workUnit);
+
 	let imageblock = createDiv();
 	imageblock.class('img-block');
-	imageblock.parent(workblock);
-
+	imageblock.parent(workContent);
+	imageblock.mousePressed(deletElement);
 	img.parent(imageblock);
 
 	//img.class('img-thumbnail');
 	img.elt.width = work.width;
 	img.elt.height = work.height;
-	console.log(img.elt.width);
 	img.elt.alt = work.title;
 	img.elt.title = work.index;
 	img.class('img-maxFrame');
 	switch (work.frame) {
 		case "maxF": img.class('img-maxFrame');
-		break;
+			break;
 		case "minF": img.class('img-minFrame');
-		break;
+			break;
 		case "midF": img.class('img-midFrame');
-		break;
+			break;
 		case "autoF": img.class('img-autoFrame');
-		break;
+			break;
 		case "noneF": img.class('img-noneFrame');
-		break;
+			break;
 	}
-	let infroblock = createDiv();
-	infroblock.class('infro-block');
-	infroblock.parent(workblock);
+	let infoblock = createDiv();
+	infoblock.class('info-block');
+	infoblock.parent(workContent);
 
-	let infro = createP();
-	infro.class('infro');
-	infro.parent(infroblock);
-	let infrowidth = max((work.width + mm(15)), mm(200));
-	infro.style('width', `${infrowidth}px`);
-	let number = createSpan("#"+work.number + " ");
+	let info = createP();
+	info.class('info');
+	info.parent(infoblock);
+	let infowidth = max((work.width + mm(15)), mm(200));
+	info.style('width', `${infowidth}px`);
+	let number = createSpan(work.number + " ");
 	let author = createSpan(work.author);
-	let title = createSpan("<br>" + work.title + "   ");
+	let title = createSpan("<br>" + work.title + " - ");
 	let size = createSpan(work.size + "  ");
-	number.class('infro-number');
-	author.class('infro-author');
-	title.class('infro-title');
-	size.class('infro-size');
-	number.parent(infro);
-	author.parent(infro);
-	title.parent(infro);
-	size.parent(infro);
+	number.class('info-number');
+	author.class('info-author');
+	title.class('info-title');
+	size.class('info-size');
+	number.parent(info);
+	author.parent(info);
+	title.parent(info);
+	size.parent(info);
 }
 
 function CreateObject(img) {
@@ -128,7 +131,7 @@ function CreateObject(img) {
 function setup() {
 	noCanvas();
 	loadImg();
-  
+
 	maincanvas = createDiv();
 	maincanvas.id('maincanvas');
 	mainTableRow = createDiv();
@@ -140,20 +143,46 @@ function setup() {
 	workBlocks = createDiv();
 	workBlocks.id('workblocks');
 	workBlocks.parent(mainTableRow);
+
+	let controlersRow = createDiv();
+	controlersRow.parent(controlerBlocks);
+	controlersRow.id('controlers-row');
+
 	let printButton = createButton('储存当前页面');
-	printButton.parent(controlerBlocks);
+	printButton.parent(controlersRow);
 	printButton.mousePressed(savePDF);
 	printButton.class('button');
+	printButton.id('button-save');
 
 	let fontButton = createButton('更改字体');
-	fontButton.parent(controlerBlocks);
+	fontButton.parent(controlersRow);
 	fontButton.mouseClicked(changeFont);
 	fontButton.class('button');
-	fontsizeControler = createSlider(10, 120, 40);
-	controlerBlocks.child(fontsizeControler);
+	fontButton.id('button-font');
 
-	fontsizeControler.style('width', '40mm');
+	let sliderContainer = createDiv();
+	sliderContainer.parent(controlersRow);
+	sliderContainer.id('slider-container');
 
+	let silderDescription = createP('更改字体大小');
+	silderDescription.parent(sliderContainer);
+	silderDescription.id('silder-description');
+
+	fontsizeSlider = createSlider(10, 120, 40);
+	fontsizeSlider.parent(silderDescription);
+	fontsizeSlider.class('slider');
+	
+	// let addWorkContainer = createDiv();
+	// addWorkContainer.parent(controlersRow);
+	// addWorkContainer.id('add-work-container');
+
+	// let addWork = createP('增加作品');
+	// addWork.parent(addWorkContainer);
+	// addWork.id('add-work');
+
+	let logo = createP('Super Thumbnail Generator');
+	logo.parent(controlersRow);
+	logo.id('logo');
 }
 
 function loadImg() {
@@ -163,7 +192,7 @@ function loadImg() {
 }
 
 function draw() {
-	fontSize = `${fontsizeControler.value()}pt`;
+	fontSize = `${fontsizeSlider.value()}pt`;
 
 	workBlocks.style('font-size', fontSize);
 	workBlocks.style('font-family', font);
@@ -176,8 +205,13 @@ function savePDF() {
 }
 
 function changeFont() {
-	font = 'HYQiHeiX1-55W';
-	alert(font);
+	if(font === 'STHeiti'){
+		font = 'HYQiHeiX1-55W';
+		alert("字体将更改为汉仪旗黑，保存pdf时文字可能会转曲");
+	} else{
+		font = 'STHeiti';
+		alert("字体将更改为华文黑体");
+	}
 }
 
 //font-family: "HYQiHeiX1-55W","STHeiti","SimHei"; 
