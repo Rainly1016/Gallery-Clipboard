@@ -118,10 +118,18 @@ function CreateObject(img) {
 	} else {
 		work.width = mm(100);
 		work.height = mm(100);
-		work.type = 'autoF';
+		work.frame = 'autoF';
 	}
 	index++;
-	//console.log(work, index);
+	//console.log(work.type);
+    try{
+		if(work.frame == 'autoF') throw `作品${index}尺寸缺失`;
+		if(work.number == "") throw `作品${index}编号缺失`;
+	} 
+	catch(err){
+		alert(err);
+	}
+
 	CreateElements(work, img);
 	if (index < table.rows.length) {
 		loadImg();
@@ -171,7 +179,7 @@ function setup() {
 	fontsizeSlider = createSlider(10, 120, 40);
 	fontsizeSlider.parent(silderDescription);
 	fontsizeSlider.class('slider');
-	
+
 	// let addWorkContainer = createDiv();
 	// addWorkContainer.parent(controlersRow);
 	// addWorkContainer.id('add-work-container');
@@ -186,9 +194,13 @@ function setup() {
 }
 
 function loadImg() {
-	let src = `data/image/黄河实验_21203_image${nf(index + 1, 3, 0)}.png`;
-	let img = createImg(src, '`image${index}`', '',
-		(img) => CreateObject(img));
+	let src = `data/image/黄河实验_21203_image${nf(index+1, 3, 0)}.png`;
+	//let src = `data/image/黄河实验_21203_image${nf(180+index, 3, 0)}.png`;
+
+		let img = createImg(src, '`image${index}`', '',
+			(img) => CreateObject(img));
+			
+
 }
 
 function draw() {
@@ -201,14 +213,13 @@ function draw() {
 
 function savePDF() {
 	window.print();
-
 }
 
 function changeFont() {
-	if(font === 'STHeiti'){
+	if (font === 'STHeiti') {
 		font = 'HYQiHeiX1-55W';
 		alert("字体将更改为汉仪旗黑，保存pdf时文字可能会转曲");
-	} else{
+	} else {
 		font = 'STHeiti';
 		alert("字体将更改为华文黑体");
 	}
