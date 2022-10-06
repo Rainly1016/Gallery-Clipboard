@@ -12,10 +12,9 @@ let frameTypeSelector = {
 }
 let index = 0;
 
-let maincanvas;
 let mainTableRow;
 let workBlocks;
-let controlerBlocks;
+
 let fontsizeSlider;
 let fontSize;
 let font = 'HYQiHeiX1-55W';
@@ -40,7 +39,6 @@ function CreateElements(work, img) {
 	imageblock.mousePressed(deletElement);
 	img.parent(imageblock);
 
-	//img.class('img-thumbnail');
 	img.elt.width = work.width;
 	img.elt.height = work.height;
 	img.elt.alt = work.title;
@@ -140,21 +138,8 @@ function setup() {
 	noCanvas();
 	loadImg();
 
-	maincanvas = createDiv();
-	maincanvas.id('maincanvas');
-	mainTableRow = createDiv();
-	mainTableRow.id('main-table-row');
-	mainTableRow.parent(maincanvas);
-	controlerBlocks = createDiv();
-	controlerBlocks.id('controlerblock');
-	controlerBlocks.parent(mainTableRow);
-	workBlocks = createDiv();
-	workBlocks.id('workblocks');
-	workBlocks.parent(mainTableRow);
-
-	let controlersRow = createDiv();
-	controlersRow.parent(controlerBlocks);
-	controlersRow.id('controlers-row');
+  let controlersRow = document.getElementById('controlers-row');
+	workBlocks = document.getElementById('workblocks');
 
 	let printButton = createButton('储存当前页面');
 	printButton.parent(controlersRow);
@@ -199,15 +184,13 @@ function loadImg() {
 
 		let img = createImg(src, '`image${index}`', '',
 			(img) => CreateObject(img));
-			
-
 }
 
 function draw() {
 	fontSize = `${fontsizeSlider.value()}pt`;
 
-	workBlocks.style('font-size', fontSize);
-	workBlocks.style('font-family', font);
+	workBlocks.style.fontSize = fontSize;
+	workBlocks.style.fontFamily = font;
 	//console.log(font);
 }
 

@@ -8,16 +8,13 @@ body {
 #maincanvas,
 #main-table-row {
   display: block;
-
 }
-
 
 #workblocks {
   width: 100%;
   vertical-align: top;
   margin: 0mm;
   padding: 20mm 10mm 10mm 10mm;
-
 }
 
 #controlerblock {
@@ -45,7 +42,6 @@ body {
   text-align: right;
   color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.242);
-  
 }
 
 .button {
