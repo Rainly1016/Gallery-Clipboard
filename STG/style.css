@@ -2,7 +2,6 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-
 }
 
 #maincanvas,
@@ -14,40 +13,106 @@ body {
   width: 100%;
   vertical-align: top;
   margin: 0mm;
-  padding: 20mm 10mm 10mm 10mm;
+  padding: 20mm 5mm 10mm 5mm;
+  justify-content: center;
+  align-items: center;
 }
 
-#controlerblock {
+#navibar {
   position: fixed;
-  display: table;
-  vertical-align: middle;
   width: 100%;
-  height:10mm;
+}
+
+
+ul {
+  line-height: 10mm;
   margin: 0;
   padding: 1mm 5mm;
   background-color: white;
-  box-shadow: rgba(50, 50, 93, 0.2) 0px 0px 12px 0px, rgba(0, 0, 0, 0.25) 0px 0px 7px 0px;
+  list-style-type: none;
+  font-size: 0pt;
+  box-shadow: rgba(50, 50, 93, 0.15) 0px 0px 2px 0px, rgba(0, 0, 0, 0.2) 0px 0px 5px 0px;
+
 }
 
-#controlers-row {
-  display: table-row;
+ul li {
+  display: inline; 
 }
 
-#logo {
-  display: table-cell;
-  padding-right: 10mm;
+li{
+  vertical-align: middle;
+}
+
+li p{
+  margin: 0mm 0mm 0mm 4mm;
+  font-family: 'HYQiHeiX1-55W', sans-serif;
+  font-size: 10pt;
+  color: #828282;
+  display: inline; 
+  vertical-align: middle;
+}
+
+#logo p{
+  color: white;
+  float:right;
   font-size: 15pt;
   font-weight: bold;
   font-style: italic;
   text-align: right;
-  color: white;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.242);
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile+label {
+  font-family: 'HYQiHeiX1-55W', sans-serif;
+  font-size: 10pt;
+  line-height: 10pt;
+  margin: 0mm 2mm;
+  padding: 1.5mm 3mm;
+  border: 2mm;
+  border-radius: 1mm;
+  color: #828282;
+  background: rgba(0, 0, 0, 0.015);
+  box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.242);
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.checkBlock{
+  position: relative;
+  margin-top: 12mm;
+  width: auto;
+  font-family: 'HYQiHeiX1-55W', sans-serif;
+  font-size: 10pt;
+  line-height: 10pt;
+  color: #929292;
+}
+
+.checkbox{
+  display: inline-block;
+  margin:0mm 2mm;
+}
+
+#checkbutton{
+  display: block;
+  margin-top: 6mm;
+  line-height: 10pt;
 }
 
 .button {
   font-family: 'HYQiHeiX1-55W', sans-serif;
   font-size: 10pt;
-  margin: 2mm;
+  vertical-align: middle;
+  margin: 0mm 2mm;
   padding: 1mm 3mm;
   border: 2mm;
   border-radius: 1mm;
@@ -57,6 +122,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  cursor: pointer;
 }
 
 .button:focus {
@@ -64,47 +130,19 @@ body {
   outline: 0;
 }
 
-.button:hover {
+.button:hover,
+.inputfile:focus+label,
+.inputfile+label:hover {
   background-color: #f3f3f3;
 }
 
-#button-save {
-  display: inline-block;
-
-}
-
-#button-font {
-  display: inline-block;
-}
-
-#slider-container,#add-work-container {
-  font-family: 'HYQiHeiX1-55W', sans-serif;
-  font-size: 10pt;
-  display: inline-block;
-  vertical-align: middle;
-  font-family: 'HYQiHeiX1-55W', sans-serif;
-  margin: 0mm 0mm;
-  padding: 0mm 3mm;
-  color: #828282;
-}
-
-#add-work-container{
-  background-color: #828282;
-}
-
-#slider-description, #add-work {
-  margin: 0mm;
-  padding: 0mm;
-  position:absolute;
-  display:flex;
-  vertical-align: middle;
-}
 
 .slider {
+  display: inline; 
+  vertical-align: middle;
   -webkit-appearance: none;
   appearance: none;
-  display: inline-block;
-  margin: 0mm 0mm 0mm 1mm;
+  margin: 0mm 2mm 0mm 1mm;
   padding: 1mm;
   width: 35mm;
   height: 0;
@@ -131,26 +169,38 @@ body {
 .work-unit {
   margin: 0mm;
   display: inline-block;
+
+
 }
 
 .work-content {
   margin: 10mm;
   display: inline-block;
 
+  
 }
 
 .img-block {
   margin: 0;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .info-block {
   margin: 0;
+
   line-height: 130%;
 }
 
 .info {
   margin: 1% 0 0 0;
+  text-align: left;
+}
+
+.info span{
+  margin: 0;
 }
 
 span.info-number {
@@ -170,26 +220,16 @@ span.info-size {
 }
 
 
-.img-maxFrame {
-  padding: 30mm;
+.img-normal {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-.img-midFrame {
-  padding: 20mm;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.img-minFrame {
-  padding: 10mm;
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.img-autoFrame {
-  padding: 20mm;
+.img-lacksize {
   background-color: red;
 }
 
-.img-noneFrame {
-  padding: 0;
+.example-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
