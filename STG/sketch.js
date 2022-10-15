@@ -72,7 +72,6 @@ function example(img) {
 	table.push(obj);
 	IMGs.push(img);
   sortPorperties();
-	
 	CreateObject(img);
 }
 
@@ -156,13 +155,17 @@ function CreateObject(img) {
 		alert(err);
 	}
 
-	//加载下一个
-	index++;
 	CreateElements(work, infoElement, img);
-	if (index < IMGs.length) {
-		//首先画出下一个图片，function待修改
-		loadImg();
+
+	//加载下一个
+	if(!showingExample){
+		index++;
+		if (index < IMGs.length) {
+			//首先画出下一个图片，function待修改
+			loadImg();
+		}
 	}
+	
 }
 
 function CreateElements(work, infoElement, img) {
@@ -387,12 +390,12 @@ function setup() {
 	fontsizeSlider.class('slider');
 
 	//设置作品区域
-	workBlocks = document.getElementById('workblocks');
-
+	workBlocks = select('#workblocks');
+  
 
 	//示例作品
 	exampleBlock = createDiv();
-	exampleBlock.parent(workBlocks);
+	workBlocks.child(exampleBlock);
 	exampleBlock.class('example');
 	loadExampleImg();
 	//loadImg();
@@ -553,10 +556,10 @@ function handleFile(file) {
 		alert("格式错误，请上传csv文件");
 	}
 }
-function handleIMG(imgs) {
-	if (imgs.type === "image") {
+function handleIMG(img) {
+	if (img.type === "image") {
 		IMGs = [];
-		IMGs.push(imgs);
+		IMGs.push(img.data);
 		receiveIMG = true;
 	} else {
 		alert("格式错误，请上传图片");
@@ -573,6 +576,11 @@ function draw() {
 	//console.log(font);
 
 	if (receiveCSV && receiveIMG) {
+    exampleBlock.remove();
+		exampleBlock = createDiv();
+		workBlocks.child(exampleBlock);
+		exampleBlock.class('example');
+		let img = createImg(IMGs[0], `${index}`,'', (img)=>CreateObject(img));
 		checkDisplayPreferences();
 		sortPorperties();
 		receiveIMG = false;
