@@ -41,6 +41,7 @@ let porpertySelector = {
 let displayPreferences = [];
 let receiveCSV = false;
 let receiveIMG = false;
+let init = true;
 let conformPreference = false;
 let ready = false;
 let displayLabel = {};
@@ -447,7 +448,7 @@ function sortPorperties() {
 		console.log('finding size');
 	}
 
-	if (showingExample) {
+	if (init) {
 		framebyType = true;
 	} else if (!displayLabel.hasOwnProperty('frame')) {
 		if (!displayLabel.hasOwnProperty('type')) {
@@ -644,6 +645,7 @@ function draw() {
 	workBlocks.style.fontFamily = font;
 
 	if (receiveCSV && receiveIMG) {
+		init = false;
 		exampleBlock.remove();
 		loadIMG();
 		checkDisplayPreferences();
