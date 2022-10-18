@@ -19,6 +19,8 @@ let imagesizes = [];
 let IMGs = [];
 let imgsize;
 let frameSize = -1;
+let preValue = 15;
+let initInfoWidth = [];
 //regular expressions 
 let regexp = /(\-|\+)?\d+(\.\d+)?/g;
 let floatDebug = /[\u4e00-\u9fa5|\。|\．]/g;
@@ -164,9 +166,9 @@ function CreateObject(img) {
 
 	//加载下一个
 	if (ready) {
-		index ++;
+		index++;
 		if (index < IMGs.length) loadIMG();
-		
+
 	}
 }
 
@@ -182,9 +184,9 @@ function CreateElements(work, infoElement, img) {
 	}
 
 	let workUnit = createDiv();
-	if (showingExample) { 
+	if (showingExample) {
 		workUnit.parent(exampleBlock);
-		workUnit.class('example-block'); 
+		workUnit.class('example-block');
 	} else {
 		workUnit.class('work-unit');
 		workUnit.parent(workBlocks);
@@ -208,20 +210,32 @@ function CreateElements(work, infoElement, img) {
 	else img.class('img-lacksize');
 	img.style('padding', `${work.frame}mm`);
 
-
 	let infoblock = createDiv();
 	infoblock.class('info-block');
 	infoblock.parent(workContent);
 
+	
+	let infowidth = work.width + mm(60);
+	if (infowidth < mm(100)) {
+		let dif = mm(100) - infowidth;
+		let allowance = map(dif, 0, mm(30), 0, mm(50));
+		infowidth = infowidth + allowance;
+		
+	} 
+	infoblock.style('width', `${infowidth}px`);
+	initInfoWidth[index] = infowidth;
+
 	let info = createP();
 	info.class('info');
 	info.parent(infoblock);
-	let infowidth = max((work.width + mm(15)), mm(200));
-	info.style('width', `${infowidth}px`);
 
 	for (let i = 0; i < infoElement.length; i++) {
-		let s = createSpan(infoElement[i] + " ");
+		let s = createSpan();
+		//if (i == 1) s.html(infoElement[i] + "  " + "<br>");
+		//else 
+		s.html(infoElement[i] + "  ");
 		s.parent(info);
+		if (i == 1) s.style('color', 'mediumblue');
 	}
 
 }
@@ -401,7 +415,7 @@ function setup() {
 	let silderDescription = createP('更改字体大小');
 	silderDescription.parent(controlli[2]);
 
-	fontsizeSlider = createSlider(10, 120, 40);
+	fontsizeSlider = createSlider(10, 120, 10);
 	fontsizeSlider.parent(controlli[3]);
 	fontsizeSlider.class('slider');
 
@@ -622,10 +636,11 @@ function handleIMG(img) {
 
 
 function draw() {
-	fontSize = `${fontsizeSlider.value()}pt`;
-  //console.log(fontSize); 
+
+	fontSize = fontsizeSlider.value();
+	//console.log(fontSize); 
 	//workBlocks.attribute('font-size', fontSize);
-	workBlocks.style.fontSize = fontSize;
+	workBlocks.style.fontSize = `${fontSize}pt`;
 	workBlocks.style.fontFamily = font;
 
 	if (receiveCSV && receiveIMG) {
@@ -638,9 +653,19 @@ function draw() {
 		receiveCSV = false;
 	}
 
+	let infoblock = selectAll('.info-block');
+	if (fontSize !== preValue) {
+		preValue = fontSize;
+		console.log(preValue);
+		for (let i=0; i<infoblock.length; i++) {
+			if (fontSize > 25) {
+				let newWidth = map(fontSize, 25, 120, initInfoWidth[i],  initInfoWidth[i]+mm(150));
+				infoblock[i].style('width', `${newWidth}px`);
+				//console.log(infoblock[i].style('width'));
+			}
+		}
+	}
 }
-
-
 
 function savePDF() {
 	window.print();

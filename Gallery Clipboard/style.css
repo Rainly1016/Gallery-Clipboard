@@ -92,12 +92,12 @@ li p{
   width: auto;
   font-family: 'HYQiHeiX1-55W', sans-serif;
   font-size: 10pt;
-  line-height: 10pt;
+  line-height: 12pt;
   color: #929292;
 }
 
 .checkbox{
-  display: inline-block;
+  /*display: inline-block;*/
   margin:0mm 2mm;
 }
 
@@ -185,13 +185,13 @@ li p{
 
 .info-block {
   margin: 0;
-
+  text-align: center;
   line-height: 130%;
 }
 
 .info {
-  margin: 1% 0 0 0;
-  text-align: center;
+  margin: 2% 0 0 0;
+
 }
 
 .info span{
